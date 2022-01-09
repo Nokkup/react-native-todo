@@ -1,7 +1,14 @@
-import {ADD_TODO, DELETE_TODO, CHANGE_STATUS} from './types';
+import {
+  ADD_TODO,
+  DELETE_TODO,
+  CHANGE_STATUS,
+  CHANGE_FILTER,
+  TODO_FILTER,
+} from './types';
 
 const INITIAL_STATE = {
   todos: [],
+  filter: TODO_FILTER.ALL,
 };
 
 export const todoReducer = (state = INITIAL_STATE, action) => {
@@ -29,6 +36,9 @@ export const todoReducer = (state = INITIAL_STATE, action) => {
           ),
         ],
       };
+    }
+    case CHANGE_FILTER: {
+      return {...state, filter: action.payload};
     }
     default:
       return state;

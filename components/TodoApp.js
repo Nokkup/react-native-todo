@@ -4,12 +4,18 @@ import {useDispatch, useSelector} from 'react-redux';
 import AddTodo from './AddTodo';
 import Placeholder from './Placeholder';
 import TodoItem from './TodoItem';
-import {addTodo, deleteTodo, changeStatus} from '../store/todoActions';
-import {selectTodosCount} from '../store/todoSelectors';
+import {
+  addTodo,
+  deleteTodo,
+  changeStatus,
+  changeFilter,
+} from '../store/todoActions';
+import {selectFilteredTodos, selectTodosCount} from '../store/todoSelectors';
 import TodoCounter from './TodoCounter';
+import TodoFilter from './TodoFilter';
 
 export default function TodoApp() {
-  const todos = useSelector(state => state.todosList.todos);
+  const todos = useSelector(selectFilteredTodos);
   const todosCounter = useSelector(selectTodosCount);
   const dispatch = useDispatch();
 
@@ -25,9 +31,14 @@ export default function TodoApp() {
     dispatch(changeStatus(id));
   };
 
+  const filterItems = filterType => {
+    dispatch(changeFilter(filterType));
+  };
+
   return (
     <View style={styles.container}>
       <View>
+        {todosCounter.all ? <TodoFilter filter={filterItems} /> : null}
         {todosCounter.all ? (
           <TodoCounter
             completed={todosCounter.completed}

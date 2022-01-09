@@ -1,4 +1,4 @@
-import {ADD_TODO, DELETE_TODO, CHANGE_STATUS} from './types';
+import {ADD_TODO, DELETE_TODO, CHANGE_STATUS, CHANGE_FILTER} from './types';
 
 export const addTodo = todoText => ({
   type: ADD_TODO,
@@ -13,4 +13,9 @@ export const deleteTodo = todoId => ({
 export const changeStatus = todoId => ({
   type: CHANGE_STATUS,
   payload: todoId,
+});
+
+export const changeFilter = filterType => ({
+  type: CHANGE_FILTER,
+  payload: filterType,
 });
