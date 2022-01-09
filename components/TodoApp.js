@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import AddTodo from './AddTodo';
 import Placeholder from './Placeholder';
 import TodoItem from './TodoItem';
-import {addTodo, deleteTodo} from '../store/todoActions';
+import {addTodo, deleteTodo, changeStatus} from '../store/todoActions';
 
 export default function TodoApp() {
   const todos = useSelector(state => state.todosList.todos);
@@ -18,6 +18,10 @@ export default function TodoApp() {
     dispatch(deleteTodo(id));
   };
 
+  const changeItemStatus = id => {
+    dispatch(changeStatus(id));
+  };
+
   return (
     <View style={styles.container}>
       <View>
@@ -26,7 +30,11 @@ export default function TodoApp() {
           ListEmptyComponent={() => <Placeholder />}
           keyExtractor={item => item.id}
           renderItem={({item}) => (
-            <TodoItem item={item} deleteTodo={deleteItem} />
+            <TodoItem
+              item={item}
+              deleteTodo={deleteItem}
+              changeStatus={changeItemStatus}
+            />
           )}
         />
         <AddTodo addTodo={addItem} />
