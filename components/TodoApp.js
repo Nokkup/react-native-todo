@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, View, FlatList} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import AddTodo from './AddTodo';
+import Placeholder from './Placeholder';
 import TodoItem from './TodoItem';
 import {addTodo, deleteTodo} from '../store/todoActions';
 
@@ -22,6 +23,7 @@ export default function TodoApp() {
       <View>
         <FlatList
           data={todos}
+          ListEmptyComponent={() => <Placeholder />}
           keyExtractor={item => item.id}
           renderItem={({item}) => (
             <TodoItem item={item} deleteTodo={deleteItem} />
