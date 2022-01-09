@@ -5,9 +5,12 @@ import AddTodo from './AddTodo';
 import Placeholder from './Placeholder';
 import TodoItem from './TodoItem';
 import {addTodo, deleteTodo, changeStatus} from '../store/todoActions';
+import {selectTodosCount} from '../store/todoSelectors';
+import TodoCounter from './TodoCounter';
 
 export default function TodoApp() {
   const todos = useSelector(state => state.todosList.todos);
+  const todosCounter = useSelector(selectTodosCount);
   const dispatch = useDispatch();
 
   const addItem = value => {
@@ -25,6 +28,12 @@ export default function TodoApp() {
   return (
     <View style={styles.container}>
       <View>
+        {todosCounter.all ? (
+          <TodoCounter
+            completed={todosCounter.completed}
+            active={todosCounter.active}
+          />
+        ) : null}
         <FlatList
           data={todos}
           ListEmptyComponent={() => <Placeholder />}
